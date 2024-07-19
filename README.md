@@ -33,7 +33,7 @@ Some patches are rewritten or modified to work together.
 
 Requirements
 -------------
-In order to build dwm you need the Xlib header files, see `setup.sh`
+In order to build dwm you need the Xlib header files, see [setup.sh](setup.sh)
 
 
 

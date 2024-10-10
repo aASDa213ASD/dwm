@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include "keycodes.h"
 
 /* appearance */
 static const unsigned int refresh_rate        = 165; /* matches dwm's mouse event processing to your monitor's refresh rate for smoother window interactions */
@@ -90,46 +91,46 @@ static const char *termcmd[]     = { "kitty", NULL }; // alaccrity (BEFORECOMMIT
 
 static Key keys[] = {
     /* mod                          key                        function        argument */
-    { MODKEY,                       XK_r,                      spawn,          {.v = launchercmd} },
-    { MODKEY,                       XK_x,                      spawn,          {.v = termcmd } },
-    { ALTKEY,             			XK_Shift_L,                spawn,          SHCMD ("setxkbmap -query | grep -q 'layout: *us' && setxkbmap ru || (setxkbmap -query | grep -q 'layout: *ru' && setxkbmap ua || setxkbmap us)")},
-    { MODKEY|ShiftMask|ControlMask, XK_w,                      spawn,          SHCMD ("feh --randomize --bg-fill ~/Pictures/Wallpapers/*")},
-    { MODKEY|ShiftMask,             XK_s,                      spawn,          SHCMD ("~/.scripts/screenshot/screenshot.sh area")},
-    { MODKEY|ShiftMask|ControlMask, XK_s,                      spawn,          SHCMD ("~/.scripts/screenshot/screenshot-save.sh")},
-    { 0,                            XF86XK_MonBrightnessUp,    spawn,          SHCMD ("xbacklight -inc 10")},
-    { 0,                            XF86XK_MonBrightnessDown,  spawn,          SHCMD ("xbacklight -dec 10")},
+    { MODKEY,                       KEY_R,                      spawn,          {.v = launchercmd} },
+    { MODKEY,                       KEY_X,                      spawn,          {.v = termcmd } },
+    { ALTKEY,             			KEY_SHIFT_L,                spawn,          SHCMD ("setxkbmap -query | grep -q 'layout: *us' && setxkbmap ru || (setxkbmap -query | grep -q 'layout: *ru' && setxkbmap ua || setxkbmap us)")},
+    { MODKEY|ShiftMask|ControlMask, KEY_W,                      spawn,          SHCMD ("feh --randomize --bg-fill ~/Pictures/Wallpapers/*")},
+    { MODKEY|ShiftMask|ControlMask, KEY_S,                      spawn,          SHCMD ("~/.scripts/screenshot/screenshot-save.sh")},
+    { MODKEY|ShiftMask,             KEY_S,                      spawn,          SHCMD ("~/.scripts/screenshot/screenshot.sh area")},
+    //{ 0,                            KEY_BRIGHTNESSUP,           spawn,          SHCMD ("xbacklight -inc 10")},
+    //{ 0,                            KEY_BRIGHTNESSDOWN,         spawn,          SHCMD ("xbacklight -dec 10")},
     //{ 0,                            XF86XK_AudioLowerVolume,   spawn,          SHCMD ("amixer sset Master 5%- unmute")},
     //{ 0,                            XF86XK_AudioMute,          spawn,          SHCMD ("amixer sset Master $(amixer get Master | grep -q '\\[on\\]' && echo 'mute' || echo 'unmute')")},
     //{ 0,                            XF86XK_AudioRaiseVolume,   spawn,          SHCMD ("amixer sset Master 5%+ unmute")},
-    { MODKEY|ShiftMask,             XK_b,                      togglebar,      {0} },
-    { ALTKEY,                       XK_Tab,                    focusstack,     {.i = +1 } },
-	{ MODKEY,             			XK_Left,                   movestack,      {.i = +1 } },
-	{ MODKEY,             			XK_Right,                  movestack,      {.i = -1 } },
-	{ MODKEY,                       XK_equal,                  incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_minus,                  incnmaster,     {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_Left,                   setmfact,       {.f = -0.05} },
-	{ MODKEY|ShiftMask,             XK_Right,                  setmfact,       {.f = +0.05} },
-    { MODKEY|ShiftMask,             XK_Up,                     setcfact,       {.f = +0.25} },
-    { MODKEY|ShiftMask,             XK_Down,                   setcfact,       {.f = -0.25} },
-    { MODKEY,                       XK_Return,                 zoom,           {0} },
-    { MODKEY,                       XK_q,                      killclient,     {0} },
-    { MODKEY,                       XK_t,                      setlayout,      {.v = &layouts[0]} },
-    { MODKEY,                       XK_f,                      setlayout,      {.v = &layouts[1]} },
-    { MODKEY,                       XK_m,                      fullscreen,     {0} },
-    { MODKEY,                       XK_space,                  setlayout,      {0} },
-    { MODKEY|ShiftMask,             XK_m,                      togglefloating, {0} },
-    { MODKEY|ShiftMask,             XK_y,                      togglefakefullscreen, {0} },
+    { MODKEY|ShiftMask,             KEY_LEFT,                   setmfact,       {.f = -0.05} },
+	{ MODKEY|ShiftMask,             KEY_RIGHT,                  setmfact,       {.f = +0.05} },
+    { MODKEY|ShiftMask,             KEY_UP,                     setcfact,       {.f = +0.25} },
+    { MODKEY|ShiftMask,             KEY_DOWN,                   setcfact,       {.f = -0.25} },
+    { MODKEY|ShiftMask,             KEY_B,                      togglebar,      {0} },
+    { ALTKEY,                       KEY_TAB,                    focusstack,     {.i = +1 } },
+	{ MODKEY,             			KEY_LEFT,                   movestack,      {.i = +1 } },
+	{ MODKEY,             			KEY_RIGHT,                  movestack,      {.i = -1 } },
+	{ MODKEY,                       KEY_EQUAL,                  incnmaster,     {.i = +1 } },
+	{ MODKEY,                       KEY_MINUS,                  incnmaster,     {.i = -1 } },
+    { MODKEY,                       KEY_RETURN,                 zoom,           {0} },
+    { MODKEY,                       KEY_Q,                      killclient,     {0} },
+    { MODKEY,                       KEY_T,                      setlayout,      {.v = &layouts[0]} },
+    { MODKEY,                       KEY_F,                      setlayout,      {.v = &layouts[1]} },
+    { MODKEY,                       KEY_M,                      fullscreen,     {0} },
+    { MODKEY,                       KEY_SPACE,                  setlayout,      {0} },
+    { MODKEY|ShiftMask,             KEY_M,                      togglefloating, {0} },
+    { MODKEY|ShiftMask,             KEY_Y,                      togglefakefullscreen, {0} },
     //{ MODKEY,                       XK_0,                      view,           {.ui = ~0 } },
     //{ MODKEY,                       XK_comma,                  focusmon,       {.i = -1 } },
     //{ MODKEY,                       XK_period,                 focusmon,       {.i = +1 } },
     //{ MODKEY|ShiftMask,             XK_comma,                  tagmon,         {.i = -1 } },
     //{ MODKEY|ShiftMask,             XK_period,                 tagmon,         {.i = +1 } },
-    { MODKEY|ShiftMask,             XK_q,                      quit,           {0} },
-    TAGKEYS(                        XK_1,                      0)
-    TAGKEYS(                        XK_2,                      1)
-    TAGKEYS(                        XK_3,                      2)
-    TAGKEYS(                        XK_4,                      3)
-    TAGKEYS(                        XK_5,                      4)
+    { MODKEY|ShiftMask,             KEY_Q,                      quit,           {0} },
+    TAGKEYS(                        KEY_1,                      0)
+    TAGKEYS(                        KEY_2,                      1)
+    TAGKEYS(                        KEY_3,                      2)
+    TAGKEYS(                        KEY_4,                      3)
+    TAGKEYS(                        KEY_5,                      4)
 };
 
 /* button definitions */

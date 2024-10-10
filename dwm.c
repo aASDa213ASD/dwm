@@ -136,7 +136,7 @@ struct Client {
 
 typedef struct {
 	unsigned int mod;
-	KeySym keysym;
+	KeyCode keycode;
 	void (*func)(const Arg *);
 	const Arg arg;
 } Key;
@@ -1409,31 +1409,39 @@ grabbuttons(Client *c, int focused)
 	}
 }
 
-void
-grabkeys(void)
+void grabkeys(void)
 {
+	// TODO: Shift + KEY_LEFT/RIGHT won't work on terminals
+	// XGrabKey is probably being triggered preventing selection
+	
 	updatenumlockmask();
 	{
 		unsigned int i, j, k;
 		unsigned int modifiers[] = { 0, LockMask, numlockmask, numlockmask|LockMask };
-		int start, end, skip;
-		KeySym *syms;
+		int start, end;
 
 		XUngrabKey(dpy, AnyKey, AnyModifier, root);
 		XDisplayKeycodes(dpy, &start, &end);
-		syms = XGetKeyboardMapping(dpy, start, end - start + 1, &skip);
-		if (!syms)
-			return;
+		
 		for (k = start; k <= end; k++)
+		{
 			for (i = 0; i < LENGTH(keys); i++)
-				/* skip modifier codes, we do that ourselves */
-				if (keys[i].keysym == syms[(k - start) * skip])
+			{	
+				// Skip modifier codes, we do that ourselves
+				if (keys[i].keycode == k)
+				{
 					for (j = 0; j < LENGTH(modifiers); j++)
-						XGrabKey(dpy, k,
-							 keys[i].mod | modifiers[j],
-							 root, True,
-							 GrabModeAsync, GrabModeAsync);
-		XFree(syms);
+					{
+						XGrabKey(
+							dpy, k,
+							keys[i].mod | modifiers[j],
+							root, True,
+							GrabModeAsync, GrabModeAsync
+						);
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -1469,18 +1477,19 @@ void
 keypress(XEvent *e)
 {
 	unsigned int i;
-	int keysyms_return;
-	KeySym* keysym;
-	XKeyEvent *ev;
+	XKeyEvent *event = &e->xkey;
 
-	ev = &e->xkey;
-	keysym = XGetKeyboardMapping(dpy, (KeyCode)ev->keycode, 1, &keysyms_return);
 	for (i = 0; i < LENGTH(keys); i++)
-		if (*keysym == keys[i].keysym
-				&& CLEANMASK(keys[i].mod) == CLEANMASK(ev->state)
-				&& keys[i].func)
+	{
+		if (
+			event->keycode == keys[i].keycode
+			&& CLEANMASK(keys[i].mod) == CLEANMASK(event->state)
+			&& keys[i].func
+		)
+		{
 			keys[i].func(&(keys[i].arg));
-	XFree(keysym);
+		}
+	}
 }
 
 void

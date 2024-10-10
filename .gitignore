@@ -1,0 +1,11 @@
+
+# Binaries
+/dwm
+/release/
+
+# Patch Fail
+*.rej
+*.orig
+
+# Object Files
+*.o

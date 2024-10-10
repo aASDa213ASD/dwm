@@ -87,13 +87,13 @@ static const Layout layouts[] = {
 #define STATUSBAR "dwmblocks"
 /* commands */
 static const char *launchercmd[] = { "rofi", "-show", "drun", NULL };
-static const char *termcmd[]     = { "kitty", NULL }; // alaccrity (BEFORECOMMIT)
+static const char *termcmd[]     = { "kitty", NULL };
 
 static Key keys[] = {
     /* mod                          key                        function        argument */
     { MODKEY,                       KEY_R,                      spawn,          {.v = launchercmd} },
     { MODKEY,                       KEY_X,                      spawn,          {.v = termcmd } },
-    { ALTKEY,             			KEY_SHIFT_L,                spawn,          SHCMD ("setxkbmap -query | grep -q 'layout: *us' && setxkbmap ru || (setxkbmap -query | grep -q 'layout: *ru' && setxkbmap ua || setxkbmap us)")},
+    { ALTKEY,                       KEY_SHIFT_L,                spawn,          SHCMD ("setxkbmap -query | grep -q 'layout: *us' && setxkbmap ru || (setxkbmap -query | grep -q 'layout: *ru' && setxkbmap ua || setxkbmap us)")},
     { MODKEY|ShiftMask|ControlMask, KEY_W,                      spawn,          SHCMD ("feh --randomize --bg-fill ~/Pictures/Wallpapers/*")},
     { MODKEY|ShiftMask|ControlMask, KEY_S,                      spawn,          SHCMD ("~/.scripts/screenshot/screenshot-save.sh")},
     { MODKEY|ShiftMask,             KEY_S,                      spawn,          SHCMD ("~/.scripts/screenshot/screenshot.sh area")},
@@ -103,15 +103,15 @@ static Key keys[] = {
     //{ 0,                            XF86XK_AudioMute,          spawn,          SHCMD ("amixer sset Master $(amixer get Master | grep -q '\\[on\\]' && echo 'mute' || echo 'unmute')")},
     //{ 0,                            XF86XK_AudioRaiseVolume,   spawn,          SHCMD ("amixer sset Master 5%+ unmute")},
     { MODKEY|ShiftMask,             KEY_LEFT,                   setmfact,       {.f = -0.05} },
-	{ MODKEY|ShiftMask,             KEY_RIGHT,                  setmfact,       {.f = +0.05} },
+    { MODKEY|ShiftMask,             KEY_RIGHT,                  setmfact,       {.f = +0.05} },
     { MODKEY|ShiftMask,             KEY_UP,                     setcfact,       {.f = +0.25} },
     { MODKEY|ShiftMask,             KEY_DOWN,                   setcfact,       {.f = -0.25} },
     { MODKEY|ShiftMask,             KEY_B,                      togglebar,      {0} },
     { ALTKEY,                       KEY_TAB,                    focusstack,     {.i = +1 } },
-	{ MODKEY,             			KEY_LEFT,                   movestack,      {.i = +1 } },
-	{ MODKEY,             			KEY_RIGHT,                  movestack,      {.i = -1 } },
-	{ MODKEY,                       KEY_EQUAL,                  incnmaster,     {.i = +1 } },
-	{ MODKEY,                       KEY_MINUS,                  incnmaster,     {.i = -1 } },
+    { MODKEY,             	    KEY_LEFT,                   movestack,      {.i = +1 } },
+    { MODKEY,             	    KEY_RIGHT,                  movestack,      {.i = -1 } },
+    { MODKEY,                       KEY_EQUAL,                  incnmaster,     {.i = +1 } },
+    { MODKEY,                       KEY_MINUS,                  incnmaster,     {.i = -1 } },
     { MODKEY,                       KEY_RETURN,                 zoom,           {0} },
     { MODKEY,                       KEY_Q,                      killclient,     {0} },
     { MODKEY,                       KEY_T,                      setlayout,      {.v = &layouts[0]} },
@@ -120,11 +120,6 @@ static Key keys[] = {
     { MODKEY,                       KEY_SPACE,                  setlayout,      {0} },
     { MODKEY|ShiftMask,             KEY_M,                      togglefloating, {0} },
     { MODKEY|ShiftMask,             KEY_Y,                      togglefakefullscreen, {0} },
-    //{ MODKEY,                       XK_0,                      view,           {.ui = ~0 } },
-    //{ MODKEY,                       XK_comma,                  focusmon,       {.i = -1 } },
-    //{ MODKEY,                       XK_period,                 focusmon,       {.i = +1 } },
-    //{ MODKEY|ShiftMask,             XK_comma,                  tagmon,         {.i = -1 } },
-    //{ MODKEY|ShiftMask,             XK_period,                 tagmon,         {.i = +1 } },
     { MODKEY|ShiftMask,             KEY_Q,                      quit,           {0} },
     TAGKEYS(                        KEY_1,                      0)
     TAGKEYS(                        KEY_2,                      1)

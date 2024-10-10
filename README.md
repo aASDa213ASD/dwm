@@ -1,10 +1,8 @@
 <div align="center">
-  <img src="./dwm-logo-bordered.png" alt="dwm-logo-bordered" width="195" height="90"/>
+  <img src="./dwm-logo.png" alt="dwm-logo-bordered" width="195" height="90"/>
 
   # dynamic window manager
 </div>
-
-
 
 <details>
   <summary>Patch list</summary>
@@ -122,3 +120,5 @@ sudo make install
 > [!TIP]
 > - By default new terminals are opened by using the keyboard shortcut of <kbd>SUPER</kbd> + <kbd>X</kbd> while rofi is started using <kbd>SUPER</kbd>+<kbd>R</kbd>
 > - Check `config.h` for the keybindings, and change them according to your preference.
+
+###### Thanks [Chris Titus](https://github.com/ChrisTitusTech) for his fork and community that contributed to his specific fork

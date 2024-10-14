@@ -10,7 +10,8 @@
 
 char *argv0;
 
-static void verr(const char *fmt, va_list ap)
+static void
+verr(const char *fmt, va_list ap)
 {
 	vfprintf(stderr, fmt, ap);
 
@@ -25,7 +26,8 @@ static void verr(const char *fmt, va_list ap)
 	}
 }
 
-void warn(const char *fmt, ...)
+void
+warn(const char *fmt, ...)
 {
 	va_list ap;
 
@@ -34,7 +36,8 @@ void warn(const char *fmt, ...)
 	va_end(ap);
 }
 
-void die(const char *fmt, ...)
+void
+die(const char *fmt, ...)
 {
 	va_list ap;
 
@@ -45,7 +48,8 @@ void die(const char *fmt, ...)
 	exit(1);
 }
 
-static int evsnprintf(char *str, size_t size, const char *fmt, va_list ap)
+static int
+evsnprintf(char *str, size_t size, const char *fmt, va_list ap)
 {
 	int ret;
 
@@ -65,7 +69,8 @@ static int evsnprintf(char *str, size_t size, const char *fmt, va_list ap)
 	return ret;
 }
 
-int esnprintf(char *str, size_t size, const char *fmt, ...)
+int
+esnprintf(char *str, size_t size, const char *fmt, ...)
 {
 	va_list ap;
 	int ret;
@@ -77,7 +82,8 @@ int esnprintf(char *str, size_t size, const char *fmt, ...)
 	return ret;
 }
 
-const char* bprintf(const char *fmt, ...)
+const char*
+bprintf(const char *fmt, ...)
 {
 	va_list ap;
 	int ret;
@@ -89,7 +95,8 @@ const char* bprintf(const char *fmt, ...)
 	return (ret < 0) ? NULL : buf;
 }
 
-const char* fmt_human(uintmax_t num, int base)
+const char*
+fmt_human(uintmax_t num, int base)
 {
 	double scaled;
 	size_t i, prefixlen;
@@ -127,7 +134,8 @@ const char* fmt_human(uintmax_t num, int base)
 	return bprintf("%.1f %s", scaled, prefix[i]);
 }
 
-int pscanf(const char *path, const char *fmt, ...)
+int
+pscanf(const char *path, const char *fmt, ...)
 {
 	FILE *fp;
 	va_list ap;

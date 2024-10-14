@@ -14,9 +14,9 @@ grep "button" keycodes.txt | awk '{ sub(/,$/, "", $4); print "#define MOUSE_" to
 Dont forget to remove keycodes.txt file as you are done
 */
 
-#define MOUSE_LEFT,   1,
-#define MOUSE_RIGHT,  3,
-#define MOUSE_MIDDLE, 2,
+#define MOUSE_LEFT   1
+#define MOUSE_RIGHT  3
+#define MOUSE_MIDDLE 2
 
 #define KEY_GRAVE 49
 #define KEY_1 10

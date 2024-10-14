@@ -2,28 +2,28 @@
 #include "keycodes.h"
 
 /* appearance */
-static const unsigned int refresh_rate        = 165; /* matches dwm's mouse event processing to your monitor's refresh rate for smoother window interactions */
-static const unsigned int enable_noborder     = 1;   /* toggles noborder feature (0=disabled, 1=enabled) */
-static const unsigned int borderpx            = 1;   /* border pixel of windows */
-static const unsigned int snap                = 26;  /* snap pixel */
-static const int swallowfloating              = 1;   /* 1 means swallow floating windows by default */
-static const unsigned int systraypinning      = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayonleft       = 0;   /* 0: systray in the right corner, >0: systray on left of status text */
-static const unsigned int systrayspacing      = 5;   /* systray spacing */
-static const int systraypinningfailfirst      = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor */
-static const int showsystray                  = 1;   /* 0 means no systray */
-static const int showbar                      = 1;   /* 0 means no bar */
-static const int topbar                       = 1;   /* 0 means bottom bar */
-#define ICONSIZE                              17     /* icon size */
-#define ICONSPACING                           10     /* space between icon and title */
-#define SHOWWINICON                           1      /* 0 means no winicon */
-static const char *fonts[]                    = { "JetBrains Mono:size=16:antialias=true" };
-static const char normbordercolor[]           = "#3B4252";
-static const char normbgcolor[]               = "#0F0F0F";
-static const char normfgcolor[]               = "#D8DEE9";
-static const char selbordercolor[]            = "#434C5E";
-static const char selbgcolor[]                = "#000000";
-static const char selfgcolor[]                = "#ECEFF4";
+static const unsigned int refresh_rate    = 165; /* matches dwm's mouse event processing to your monitor's refresh rate for smoother window interactions */
+static const unsigned int enable_noborder = 1;   /* toggles noborder feature (0=disabled, 1=enabled) */
+static const unsigned int borderpx        = 1;   /* border pixel of windows */
+static const unsigned int snap            = 26;  /* snap pixel */
+static const int swallowfloating          = 1;   /* 1 means swallow floating windows by default */
+static const unsigned int systraypinning  = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayonleft   = 0;   /* 0: systray in the right corner, >0: systray on left of status text */
+static const unsigned int systrayspacing  = 5;   /* systray spacing */
+static const int systraypinningfailfirst  = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor */
+static const int showsystray              = 1;   /* 0 means no systray */
+static const int showbar                  = 1;   /* 0 means no bar */
+static const int topbar                   = 1;   /* 0 means bottom bar */
+#define ICONSIZE                          17     /* icon size */
+#define ICONSPACING                       10     /* space between icon and title */
+#define SHOWWINICON                       1      /* 0 means no winicon */
+static const char *fonts[]                = { "JetBrains Mono:size=16:antialias=true" };
+static const char normbordercolor[]       = "#3B4252";
+static const char normbgcolor[]           = "#0F0F0F";
+static const char normfgcolor[]           = "#D8DEE9";
+static const char selbordercolor[]        = "#434C5E";
+static const char selbgcolor[]            = "#000000";
+static const char selfgcolor[]            = "#ECEFF4";
 
 static const char *colors[][3] = {
     /*               fg           bg           border   */
@@ -36,17 +36,15 @@ static const char *const autostart[] = {
     "xset", "s", "noblank", NULL,
     "xset", "-dpms", NULL,
     "xset", "r", "rate", "150", "30", NULL,
+    "dbus-update-activation-environment", "--systemd", "--all", NULL,
     "sh", "-c", "/home/aasda/.scripts/screenlayout/2560x1440p.sh", NULL,
     "sh", "-c", "feh --randomize --bg-fill ~/Pictures/Wallpapers/*", NULL,
-    "dbus-update-activation-environment", "--systemd", "--all", NULL,
-    //"dunst", NULL,
     "picom", "-b", "--animations", NULL,
     NULL /* terminate */
 };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5" };
-
 static const char ptagf[] = "[%s %s]"; /* format of a tag label */
 static const char etagf[] = "[%s]";    /* format of an empty tag */
 static const int lcaselbl = 0;         /* 1 means make tag label lowercase */
@@ -85,6 +83,7 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define STATUSBAR "dwmblocks"
+
 /* commands */
 static const char *launchercmd[] = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]     = { "kitty", NULL };
@@ -93,10 +92,11 @@ static Key keys[] = {
     /* mod                          key                        function        argument */
     { MODKEY,                       KEY_R,                      spawn,          {.v = launchercmd} },
     { MODKEY,                       KEY_X,                      spawn,          {.v = termcmd } },
-    { ALTKEY,                       KEY_SHIFT_L,                spawn,          SHCMD ("setxkbmap -query | grep -q 'layout: *us' && setxkbmap ru || (setxkbmap -query | grep -q 'layout: *ru' && setxkbmap ua || setxkbmap us)")},
     { MODKEY|ShiftMask|ControlMask, KEY_W,                      spawn,          SHCMD ("feh --randomize --bg-fill ~/Pictures/Wallpapers/*")},
     { MODKEY|ShiftMask|ControlMask, KEY_S,                      spawn,          SHCMD ("~/.scripts/screenshot/screenshot-save.sh")},
     { MODKEY|ShiftMask,             KEY_S,                      spawn,          SHCMD ("~/.scripts/screenshot/screenshot.sh area")},
+    { ALTKEY,                       KEY_SHIFT_L,                spawn,          SHCMD ("~/.scripts/keyboardlayout/switch.sh")},
+    //{ ALTKEY,                       KEY_SHIFT_L,                spawn,          SHCMD ("setxkbmap -query | grep -q 'layout: *us' && setxkbmap ru || (setxkbmap -query | grep -q 'layout: *ru' && setxkbmap ua || setxkbmap us)")},
     //{ 0,                            KEY_BRIGHTNESSUP,           spawn,          SHCMD ("xbacklight -inc 10")},
     //{ 0,                            KEY_BRIGHTNESSDOWN,         spawn,          SHCMD ("xbacklight -dec 10")},
     //{ 0,                            XF86XK_AudioLowerVolume,   spawn,          SHCMD ("amixer sset Master 5%- unmute")},
@@ -108,8 +108,8 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             KEY_DOWN,                   setcfact,       {.f = -0.25} },
     { MODKEY|ShiftMask,             KEY_B,                      togglebar,      {0} },
     { ALTKEY,                       KEY_TAB,                    focusstack,     {.i = +1 } },
-    { MODKEY,             	    KEY_LEFT,                   movestack,      {.i = +1 } },
-    { MODKEY,             	    KEY_RIGHT,                  movestack,      {.i = -1 } },
+    { MODKEY,			    KEY_LEFT,                   movestack,      {.i = +1 } },
+    { MODKEY,			    KEY_RIGHT,                  movestack,      {.i = -1 } },
     { MODKEY,                       KEY_EQUAL,                  incnmaster,     {.i = +1 } },
     { MODKEY,                       KEY_MINUS,                  incnmaster,     {.i = -1 } },
     { MODKEY,                       KEY_RETURN,                 zoom,           {0} },
@@ -132,12 +132,15 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
     /* click                event mask      button          function        argument */
-    { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-    { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
-    { ClkClientWin,         MODKEY,         Button1,        moveorplace,    {.i = 2} },
-    { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
-    { ClkTagBar,            0,              Button1,        view,           {0} },
-    { ClkTagBar,            0,              Button3,        toggleview,     {0} },
-    { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-    { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+    { ClkTagBar,            MODKEY,         MOUSE_LEFT,        tag,            {0} },
+    { ClkTagBar,            MODKEY,         MOUSE_RIGHT,       toggletag,      {0} },
+    { ClkClientWin,         MODKEY,         MOUSE_LEFT,        moveorplace,    {.i = 2} },
+    { ClkClientWin,         MODKEY,         MOUSE_RIGHT,       resizemouse,    {0} },
+    { ClkTagBar,            0,              MOUSE_LEFT,        view,           {0} },
+    { ClkTagBar,            0,              MOUSE_RIGHT,       toggleview,     {0} },
+    { ClkTagBar,            MODKEY,         MOUSE_LEFT,        tag,            {0} },
+    { ClkTagBar,            MODKEY,         MOUSE_RIGHT,       toggletag,      {0} },
+    { ClkClientWin,         MODKEY,         MOUSE_MIDDLE,      togglefloating, {0} },
+    { ClkStatusText,        0,              MOUSE_MIDDLE,      sigstatusbar,   {.i = 2} },
+    { ClkWinTitle,          0,              MOUSE_MIDDLE,      zoom,           {0} },
 };

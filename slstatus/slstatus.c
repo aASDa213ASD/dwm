@@ -23,7 +23,8 @@ static Display *dpy;
 
 #include "config.h"
 
-static void terminate(const int signo)
+static void
+terminate(const int signo)
 {
 	if (signo != SIGUSR1)
 	{
@@ -31,19 +32,22 @@ static void terminate(const int signo)
 	}
 }
 
-static void difftimespec(struct timespec *res, struct timespec *a, struct timespec *b)
+static void
+difftimespec(struct timespec *res, struct timespec *a, struct timespec *b)
 {
 	res->tv_sec = a->tv_sec - b->tv_sec - (a->tv_nsec < b->tv_nsec);
 	res->tv_nsec = a->tv_nsec - b->tv_nsec +
 	              (a->tv_nsec < b->tv_nsec) * 1E9;
 }
 
-static void usage(void)
+static void
+usage(void)
 {
 	die("usage: %s [-v] [-s] [-1]", argv0);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
 	struct sigaction act;
 	struct timespec start, current, diff, intspec, wait;

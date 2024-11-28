@@ -1577,8 +1577,6 @@ manage(Window w, XWindowAttributes *wa)
 	if (term)
 		swallow(term, c);
 	focus(NULL);
-	if (ISVISIBLE(c))
-		warp(c);
 }
 
 void
@@ -3013,8 +3011,6 @@ unmanage(Client *c, int destroyed)
 			/* Focus the top window and set it as the current focus */
 			focus(top);
 			restack(m);
-			/* Warp the cursor to the center of the top window */
-			XWarpPointer(dpy, None, top->win, 0, 0, 0, 0, top->w / 2, top->h / 2);
 			/* Set the input focus to the top window */
 			XSetInputFocus(dpy, top->win, RevertToPointerRoot, CurrentTime);
 		} else {

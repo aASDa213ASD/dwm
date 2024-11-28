@@ -14,10 +14,10 @@ static const int systraypinningfailfirst  = 1;   /* 1: if pinning fails, display
 static const int showsystray              = 1;   /* 0 means no systray */
 static const int showbar                  = 1;   /* 0 means no bar */
 static const int topbar                   = 1;   /* 0 means bottom bar */
-#define ICONSIZE                          17     /* icon size */
+#define ICONSIZE                          20     /* icon size */
 #define ICONSPACING                       10     /* space between icon and title */
 #define SHOWWINICON                       1      /* 0 means no winicon */
-static const char *fonts[]                = { "JetBrains Mono:size=16:antialias=true" };
+static const char *fonts[]                = { "JetBrains Mono:size=16" };
 static const char normbordercolor[]       = "#3B4252";
 static const char normbgcolor[]           = "#0F0F0F";
 static const char normfgcolor[]           = "#D8DEE9";
@@ -37,7 +37,7 @@ static const char *const autostart[] = {
     "xset", "-dpms", NULL,
     "xset", "r", "rate", "150", "30", NULL,
     "dbus-update-activation-environment", "--systemd", "--all", NULL,
-    "sh", "-c", "/home/aasda/.scripts/screenlayout/2560x1440p.sh", NULL,
+    "sh", "-c", "/home/aasda/.scripts/screenlayout/Main.sh", NULL,
     "sh", "-c", "feh --randomize --bg-fill ~/Pictures/Wallpapers/*", NULL,
     "picom", "-b", "--animations", NULL,
     NULL /* terminate */
@@ -51,10 +51,10 @@ static const int lcaselbl = 0;         /* 1 means make tag label lowercase */
 
 static const Rule rules[] = {
     /* class                instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-    { "St",                 NULL,     NULL,           0,         0,          1,          0,         0 },
-    { "kitty",              NULL,     NULL,           0,         0,          1,          0,         0 },
-    { "lutris",             NULL,     NULL,           0,         1,          0,          0,         0 },
-    { "steam_app_default",  NULL,     NULL,           0,         1,          0,          0,         0 },
+    { "St",                 NULL,     NULL,           0,         0,          1,          0,        -1 },
+    { "kitty",              NULL,     NULL,           0,         0,          1,          0,        -1 },
+    { "lutris",             NULL,     NULL,           0,         1,          0,          0,        -1 },
+    { "steam_app_default",  NULL,     NULL,           0,         1,          0,          0,        -1 },
     { NULL,                 NULL,     "Event Tester", 0,         0,          0,          1,        -1 }, /* xev */
 };
 
@@ -96,7 +96,6 @@ static Key keys[] = {
     { MODKEY|ShiftMask|ControlMask, KEY_S,                      spawn,          SHCMD ("~/.scripts/screenshot/screenshot-save.sh")},
     { MODKEY|ShiftMask,             KEY_S,                      spawn,          SHCMD ("~/.scripts/screenshot/screenshot.sh area")},
     { ALTKEY,                       KEY_SHIFT_L,                spawn,          SHCMD ("~/.scripts/keyboardlayout/switch.sh")},
-    //{ ALTKEY,                       KEY_SHIFT_L,                spawn,          SHCMD ("setxkbmap -query | grep -q 'layout: *us' && setxkbmap ru || (setxkbmap -query | grep -q 'layout: *ru' && setxkbmap ua || setxkbmap us)")},
     //{ 0,                            KEY_BRIGHTNESSUP,           spawn,          SHCMD ("xbacklight -inc 10")},
     //{ 0,                            KEY_BRIGHTNESSDOWN,         spawn,          SHCMD ("xbacklight -dec 10")},
     //{ 0,                            XF86XK_AudioLowerVolume,   spawn,          SHCMD ("amixer sset Master 5%- unmute")},

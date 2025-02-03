@@ -38,7 +38,7 @@ static const char *const autostart[] = {
     "xset", "r", "rate", "150", "30", NULL,
     "dbus-update-activation-environment", "--systemd", "--all", NULL,
     "sh", "-c", "/home/aasda/.scripts/screenlayout/Main.sh", NULL,
-    "sh", "-c", "feh --randomize --bg-fill ~/Pictures/Wallpapers/*", NULL,
+    "sh", "-c", "feh --randomize --bg-fill ~/.wallpapers/*", NULL,
     "picom", "-b", "--animations", NULL,
     NULL /* terminate */
 };
